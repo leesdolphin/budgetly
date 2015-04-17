@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html ng-app="index">
+  <head>
+    <title>TODO supply a title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="lib/css/index.css" />
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+      div {
+        margin: 20px;
+        border: 1px solid grey;
+      }
+      thead {
+        font-weight: bold;
+      }
+      td {
+        padding: 1px;
+        border: 1px solid lightgray;
+      }
+    </style>
+  </head>
+  <body ng-controller="BaseController">
+    <div ng-controller="CategoryList">
+      <table ng-if="categories">
+        <thead>
+          <tr>
+            <td>Category</td>
+            <td>Name</td>
+            <td></td>
+          </tr>
+        </thead>
+        <tr ng-repeat="category in categories">
+          <td>{{category.category}}</td>
+          <td>{{category.name}}</td>
+          <td><a ng-click="deleteCategory(category)">Remove</a></td>
+        </tr>
+      </table>
+    </div>
+
+    <div ng-controller="CategoryAdder">
+      Name: <input type="text" ng-model="store.name" />
+      <br />
+      Category: <input type="text" ng-model="store.category" typeahead="cat for cat in categories | filter:$viewValue | limitTo:8" class="form-control">
+      <br />
+      <input type="button" ng-click="create()" value="Add Category" />
+    </div>
+
+    <div ng-controller="PlanningList">
+      <table>
+        <thead>
+          <tr>
+            <td>ID</td>
+            <td>Name</td>
+            <td>Category</td>
+            <td>Start Date</td>
+            <td>End Date</td>
+            <td>Payment Period</td>
+            <td>Payment Amount</td>
+            <td></td>
+          </tr>
+        </thead>
+        <tr ng-repeat="plan in planning">
+          <td>{{plan.id}}</td>
+          <td><a ng-click="delete(plan)">Remove</a></td>
+        </tr>
+      </table>
+    </div>
+
+    <div ng-controller="PlanningAdder">
+      Name: <input ng-model="store.name" />
+      <br />
+      Category: 
+      <span>
+        <select class="form-control input-lg" id="country" ng-model="tmp.category" ng-options="category.category for category in categories">
+          <option ng-value='null'></option>
+        </select>
+        <select class="form-control input-lg" id="state" ng-disabled="!tmp.category" ng-model="store.category" ng-options="cat as cat.name for cat in getCategoriesIn(tmp.category)">
+          <option ng-value='null'></option>
+        </select>
+      </span>
+
+
+
+    </div>
+
+
+    <script src="bower_components/angularjs/angular.js"></script>
+    <script src="bower_components/angular-indexed-db/angular-indexed-db.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="lib/js/base.js"></script>
+    <script src="lib/js/index.js"></script>
+  </body>
+</html>

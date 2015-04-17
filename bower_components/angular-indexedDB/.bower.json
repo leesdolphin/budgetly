@@ -1,0 +1,27 @@
+{
+  "name": "angular-indexedDB",
+  "main": "angular-indexedDB.js",
+  "version": "0.0.1",
+  "homepage": "https://github.com/gdi2290/angular-indexedDB",
+  "authors": [
+    "gdi2290 <github@gdi2290.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/bower_components",
+    "test",
+    "tests"
+  ],
+  "_release": "0.0.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.0.1",
+    "commit": "80f22dd2467d7fe2da9907de8d4e394accc38292"
+  },
+  "_source": "git://github.com/gdi2290/angular-indexedDB.git",
+  "_target": "~0.0.1",
+  "_originalSource": "angular-indexedDB"
+}
