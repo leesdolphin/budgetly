@@ -30,5 +30,5 @@
     "grunt-contrib-watch": "~0.5.3"
   },
   "author": "Lee Symes",
-  "license": "ISC"
+  "license": "MIT"
 }
