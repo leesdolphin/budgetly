@@ -66,34 +66,31 @@ and open the template in the editor.
           </tr>
         </thead>
         <tr ng-repeat="plan in planning">
-          <td>{{plan.id}}</td>
+          <td>{{plan.$key}}</td>
+          <td>{{plan.name}}</td>
+          <td>{{plan.category | formatCategory}}</td>
+          <td>{{plan.startDate | formatMoment:"DD/MM/YYYY"}}</td>
+          <td>{{plan.endDate | formatMoment:"DD/MM/YYYY"}}</td>
+          <td>Every {{plan.period | formatPeriod}}</td>
+          <td>{{plan.amount}}</td>
           <td><a ng-click="delete(plan)">Remove</a></td>
         </tr>
       </table>
     </div>
 
     <div ng-controller="PlanningAdder">
-      Name: <input ng-model="store.name" />
-      <br />
-      Category: 
-      <span>
-        <select class="form-control input-lg" id="country" ng-model="tmp.category" ng-options="category.category for category in categories">
-          <option ng-value='null'></option>
-        </select>
-        <select class="form-control input-lg" id="state" ng-disabled="!tmp.category" ng-model="store.category" ng-options="cat as cat.name for cat in getCategoriesIn(tmp.category)">
-          <option ng-value='null'></option>
-        </select>
-      </span>
-
-
-
+      <bl-planning-form object="store">
+        <input type="button" ng-click="create()" value="Add Category" />
+      </bl-planning-form>
     </div>
 
-
     <script src="bower_components/angularjs/angular.js"></script>
-    <script src="bower_components/angular-indexed-db/angular-indexed-db.js"></script>
+    <script src="bower_components/angular-indexedDB/angular-indexed-db.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="lib/js/base.js"></script>
     <script src="lib/js/index.js"></script>
+    <script src="lib/js/directives.js"></script>
+    <script src="lib/js/filters.js"></script>
   </body>
 </html>
