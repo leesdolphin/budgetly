@@ -19,6 +19,7 @@
     "moment": "~2.10.2",
     "angular-indexedDB": "https://github.com/leesdolphin/angular-indexedDB.git#master",
     "angular-bootstrap": "~0.12.1",
-    "bootstrap": "~3.3.4"
+    "bootstrap": "~3.3.4",
+    "angular-busy": "~4.1.3"
   }
 }

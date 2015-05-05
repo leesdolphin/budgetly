@@ -11,79 +11,117 @@ and open the template in the editor.
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="lib/css/index.css" />
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style type="text/css">
-      div {
-        margin: 20px;
-        border: 1px solid grey;
-      }
-      thead {
-        font-weight: bold;
-      }
-      td {
-        padding: 1px;
-        border: 1px solid lightgray;
-      }
-    </style>
   </head>
   <body ng-controller="BaseController">
-    <div ng-controller="CategoryList">
-      <table ng-if="categories">
-        <thead>
-          <tr>
-            <td>Category</td>
-            <td>Name</td>
-            <td></td>
+    <div class="container">
+      <div class="page-header">
+        <h1>Testing my new pages <small>Version 0.0.1</small></h1>
+      </div>
+      <div ng-controller="CategoryList" class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">All Categories</h3>
+        </div>
+        <table ng-if="cw.all" class="table">
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>Name</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="category in cw.all">
+              <td>{{category.category}}</td>
+              <td>{{category.name}}</td>
+              <td>
+                <bl-edit-button-group 
+                  delete="delete(plan)" 
+                  edit="" 
+                  show-edit="true" 
+                  show-delete="true">
+                </bl-edit-button-group>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div ng-controller="CategoryAdder" class="panel panel-default">
+        <pre>{{cw.by_category | json }}</pre>
+        <div class="panel-heading">
+          <h3 class="panel-title">Add new category</h3>
+        </div>
+        <div class="panel-body">
+          <div class="form-horizontal">
+            <div class="form-group">
+              <label for="catAddName" class="col-sm-2 control-label">Name</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="catAddName" ng-model="store.name" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="catAddCategory" class="col-sm-2 control-label">Category:</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="catAddCategory" ng-model="store.category" 
+                       typeahead="name for name in cw.by_category | keys | filter:$viewValue | limitTo:8">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                <input type="button" class="btn btn-default" ng-click="create()" value="Add Category" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+<!--
+      <div ng-controller="PlanningList" class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">All Plans</h3>
+        </div>
+        <table ng-if="planning" class="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Category</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+              <th>Payment Period</th>
+              <th>Payment Amount</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="plan in planning">
+              <td>{{plan.$key}}||{{plan.id}}</td>
+              <td>{{plan.name}}</td>
+              <td>{{plan.category| formatCategory}}</td>
+              <td>{{plan.startDate| formatMoment:"DD/MM/YYYY"}}</td>
+              <td>{{plan.endDate| formatMoment:"DD/MM/YYYY"}}</td>
+              <td>Every {{plan.period| formatPeriod}}</td>
+              <td>{{plan.amount}}</td>
+              <td>
+          <bl-edit-button-group delete="delete(plan)" edit=""
+                                show-edit="true" show-delete="true">
+          </bl-edit-button-group>
+          </td>
           </tr>
-        </thead>
-        <tr ng-repeat="category in categories">
-          <td>{{category.category}}</td>
-          <td>{{category.name}}</td>
-          <td><a ng-click="deleteCategory(category)">Remove</a></td>
-        </tr>
-      </table>
-    </div>
+          </tbody>
+        </table>
+      </div>
 
-    <div ng-controller="CategoryAdder">
-      Name: <input type="text" ng-model="store.name" />
-      <br />
-      Category: <input type="text" ng-model="store.category" typeahead="cat for cat in categories | filter:$viewValue | limitTo:8" class="form-control">
-      <br />
-      <input type="button" ng-click="create()" value="Add Category" />
+      <div ng-controller="PlanningAdder" class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">All Plans</h3>
+        </div>
+        <div class="panel-body">
+          <bl-planning-form object="store">
+            <input type="button" ng-click="create()" value="Add Category" />
+          </bl-planning-form>
+        </div>
+      </div>-->
     </div>
-
-    <div ng-controller="PlanningList">
-      <table>
-        <thead>
-          <tr>
-            <td>ID</td>
-            <td>Name</td>
-            <td>Category</td>
-            <td>Start Date</td>
-            <td>End Date</td>
-            <td>Payment Period</td>
-            <td>Payment Amount</td>
-            <td></td>
-          </tr>
-        </thead>
-        <tr ng-repeat="plan in planning">
-          <td>{{plan.$key}}</td>
-          <td>{{plan.name}}</td>
-          <td>{{plan.category | formatCategory}}</td>
-          <td>{{plan.startDate | formatMoment:"DD/MM/YYYY"}}</td>
-          <td>{{plan.endDate | formatMoment:"DD/MM/YYYY"}}</td>
-          <td>Every {{plan.period | formatPeriod}}</td>
-          <td>{{plan.amount}}</td>
-          <td><a ng-click="delete(plan)">Remove</a></td>
-        </tr>
-      </table>
-    </div>
-
-    <div ng-controller="PlanningAdder">
-      <bl-planning-form object="store">
-        <input type="button" ng-click="create()" value="Add Category" />
-      </bl-planning-form>
-    </div>
-
     <script src="bower_components/angularjs/angular.js"></script>
     <script src="bower_components/angular-indexedDB/angular-indexed-db.js"></script>
     <script src="bower_components/moment/moment.js"></script>
@@ -91,6 +129,7 @@ and open the template in the editor.
     <script src="lib/js/base.js"></script>
     <script src="lib/js/index.js"></script>
     <script src="lib/js/directives.js"></script>
+    <script src="lib/js/wrap.js"></script>
     <script src="lib/js/filters.js"></script>
   </body>
 </html>

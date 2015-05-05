@@ -10,7 +10,7 @@
     <div class="col-sm-5">
       <select class="form-control" id="catCategory" ng-model="tmp.category"
               placeholder="Category" 
-              ng-options="cat for cat in (keyed_categories | keys)">
+              ng-options="cat for cat in ()">
       </select>
     </div>
     <div class="col-sm-5">
@@ -22,34 +22,44 @@
     </div>
   </div>
   <div class="form-group">
-    Start Date:
-    <input type="date" ng-model="store.startDate" />
+    <label for="dollar" class="col-sm-2 control-label">Dollar</label>
+    <div class="col-sm-10">
+      <div class="input-group"> 
+        <span class="input-group-addon">$</span>
+        <input type="number" value="100" min="0" step="0.01" 
+               data-number-to-fixed="2" data-number-stepfactor="100" 
+               ng-model="store.amount"
+               class="form-control" id="dollar" />
+      </div> 
+    </div>
   </div>
   <div class="form-group">
-    End Date:
-    <input type="date" ng-model="store.endDate" />
+    <label for="period" class="col-sm-2 control-label">Period</label>
+    <div class="col-sm-5">
+      <input type="number" class="form-control" ng-model="store.period.number"/>
+    </div>
+    <div class="col-sm-5">
+      <select class="form-control" ng-model="store.period.period">
+        <option selected="selected" ng-selected="true">Day</option>
+        <option>Week</option>
+        <option>Month</option>
+        <option>Year</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="startDate" class="col-sm-2 control-label">Start Date</label>
+    <div class="col-sm-10">
+      <input type="date" class="form-control" id="startDate" placeholder="Start Date" ng-model="store.startDate" />
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="startDate" class="col-sm-2 control-label">
+      End Date
+    </label>
+    <div class="col-sm-10">
+      <input type="date" class="form-control" id="startDate" placeholder="Start Date" ng-model="store.endDate" />
+    </div>
   </div>
   <ng-transclude></ng-transclude>
 </div>
-  <br />
-Category: 
-<span>
-</span>
-<div class="form-row">
-  <label for="c2">Dollar:</label>
-  <div class="input-group"> 
-    <span class="input-group-addon">$</span>
-    <input type="number" value="100" min="0" step="0.01" 
-           data-number-to-fixed="2" data-number-stepfactor="100" 
-           ng-model="store.amount"
-           class="form-control" id="c2" />
-  </div> 
-</div>
-<br />
-Period:
-<input type="number" ng-model="store.period.number"/><select ng-model="store.period.period">
-  <option>Day</option>
-  <option>Week</option>
-  <option>Month</option>
-  <option>Year</option>
-</select>
